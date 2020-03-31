@@ -16,6 +16,7 @@ public class Ordenes extends javax.swing.JFrame {
      */
     public Ordenes() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

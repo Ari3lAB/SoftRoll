@@ -1,14 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Control;
 
 /**
  *
  * @author Ariel AB
  */
+import DAO.ControlDao;
+import java.util.ArrayList;
+
 public class ControlOrden {
-    
+
+    ControlDao dao;
+
+    private static ControlOrden single_instance = null;
+
+    private ControlOrden() {
+        dao = ControlDao.getInstance();
+    }
+
+    public static ControlOrden getInstance() {
+        if (single_instance == null) {
+            single_instance = new ControlOrden();
+        }
+
+        return single_instance;
+    }
+
+    public void AgregarOrden(int idCliente, int idUsuario, String Estado, float PagoFinal) {
+        dao.IngresarOrden(idCliente, idUsuario, Estado, PagoFinal);
+    }
+
+    public void AgregarDetalleOrden(ArrayList DetallesOrden) {
+        dao.IngresarDetallesOrden(DetallesOrden);
+    }
+
+    public ArrayList ObtenerOrdenesActivas() {
+        return dao.BuscarOrdenesActivas();
+    }
+
 }

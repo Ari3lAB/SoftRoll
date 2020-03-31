@@ -17,6 +17,7 @@ public class NuevaOrden extends javax.swing.JFrame {
      */
     public NuevaOrden() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

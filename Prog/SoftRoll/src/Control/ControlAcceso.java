@@ -1,28 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Control;
 
 /**
  *
  * @author Ariel AB
  */
+import DAO.ControlDao;
 
 public class ControlAcceso {
 
-    String usuario;
-    String contraseña;
+    private String usuario;
+    private String pass;
 
-    public boolean Acceder(String usuario, String contraseña) {
+    private static ControlAcceso single_instance = null;
+
+    private ControlAcceso() {
+
+    }
+
+    public static ControlAcceso getInstance() {
+        if (single_instance == null) {
+            single_instance = new ControlAcceso();
+        }
+
+        return single_instance;
+    }
+
+    public boolean Acceder(String usuario, String pass) {
         this.usuario = usuario;
-        this.contraseña = contraseña;
-
+        this.pass = pass;
         return OtorgarPermiso();
     }
 
     public boolean OtorgarPermiso() {
-        return true;
+        return ControlDao.getInstance().PedirAcceso(usuario, pass);
+
     }
 }
