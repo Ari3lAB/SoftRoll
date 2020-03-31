@@ -5,16 +5,19 @@ package DAO;
  *
  * @author Ariel AB
  */
-public class Usuario {    
+public class Usuario {  
+    private int id;
     private String nombre;
     private String contra;
+    private boolean adminstrador;
 
-    public Usuario(String nombre, String contra) {
+    public Usuario(int id, String nombre, String contra, boolean admin) {
+        this.id = id;
         this.nombre = nombre;
         this.contra = contra;
+        this.adminstrador = admin;
     }
     
-
     public String getNombre() {
         return nombre;
     }

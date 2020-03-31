@@ -1,5 +1,6 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,18 +9,14 @@ import java.util.List;
  */
 public class Menu {
 
-    public Menu(List<Producto> productos) {
-        this.productos = productos;
-    }
+    private ArrayList productos;
 
-    private List<Producto> productos;
+    public Menu(List<Producto> productos) {
+        this.productos = new ArrayList(productos);
+    }
 
     public List<Producto> getProductos() {
         return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
     }
 
 }

@@ -9,40 +9,15 @@ public class Producto {
     private int id;
     private String nombre;
     private float precio;
-    private String categoría;
+    private int categoría;
     private boolean promo;
 
-    public Producto(int id, String nombre, float precio, String categoría, boolean promo) {
+    public Producto(int id, String nombre, float precio, int categoría, boolean promo) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.categoría = categoría;
         this.promo = promo;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Producto other = (Producto) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
     }
 
     public int getId() {
@@ -77,11 +52,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getCategoría() {
+    public int getCategoría() {
         return categoría;
     }
 
-    public void setCategoría(String categoría) {
+    public void setCategoría(int categoría) {
         this.categoría = categoría;
     }
 
