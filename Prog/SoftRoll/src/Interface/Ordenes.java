@@ -5,11 +5,19 @@
  */
 package Interface;
 
+import Control.FachadaControl;
+import java.util.ArrayList;
+import DAO.Orden;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ariel AB
  */
 public class Ordenes extends javax.swing.JFrame {
+
+    FachadaControl control;
+    ArrayList ordenesActivas;
 
     /**
      * Creates new form Ordenes
@@ -17,6 +25,24 @@ public class Ordenes extends javax.swing.JFrame {
     public Ordenes() {
         initComponents();
         this.setLocationRelativeTo(null);
+        control = FachadaControl.getInstance();
+        ordenesActivas = control.OrdenesActivas();
+        addRowToJTable();
+
+    }
+
+    public void addRowToJTable() {
+        DefaultTableModel model = (DefaultTableModel) jTableOrdenesActivas.getModel();
+        ArrayList<Orden> list = control.OrdenesActivas();
+        Object rowData[] = new Object[4];
+        for (int i = 0; i < list.size(); i++) {
+            rowData[0] = list.get(i).getId();
+            rowData[1] = list.get(i).getCliente();
+            rowData[2] = list.get(i).getFecha();
+            rowData[3] = list.get(i).getEstado();
+            model.addRow(rowData);
+        }
+
     }
 
     /**
@@ -32,7 +58,7 @@ public class Ordenes extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableOrdenesActivas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -46,12 +72,9 @@ public class Ordenes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOrdenesActivas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "No. Orden", "Cliente", "Hora", "Estado"
@@ -61,7 +84,7 @@ public class Ordenes extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -72,12 +95,10 @@ public class Ordenes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(jTableOrdenesActivas);
+        if (jTableOrdenesActivas.getColumnModel().getColumnCount() > 0) {
+            jTableOrdenesActivas.getColumnModel().getColumn(1).setResizable(false);
+            jTableOrdenesActivas.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jButton1.setText("Nueva Orden");
@@ -110,7 +131,7 @@ public class Ordenes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
         );
 
@@ -166,6 +187,6 @@ public class Ordenes extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableOrdenesActivas;
     // End of variables declaration//GEN-END:variables
 }
