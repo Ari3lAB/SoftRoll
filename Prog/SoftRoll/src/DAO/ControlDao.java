@@ -32,7 +32,7 @@ public class ControlDao {
         return single_instance;
     }
 
-    public boolean PedirAcceso(String usuario, String pass) {
+    public boolean PedirAcceso(String usuario, String pass) {        
         for (int i = 0; i < usuarios.size(); i++) {
             if (usuarios.get(i).getNombre().equals(usuario)) {
                 if (usuarios.get(i).getContra().equals(pass)) {

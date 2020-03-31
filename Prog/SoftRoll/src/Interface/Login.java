@@ -171,7 +171,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         usuario = jTextUsuario.getText();
-        pass = jPassword.getPassword().toString();
+        pass = jPassword.getText();
 
         if (control.Acceder(usuario, pass)) {
             Ordenes CAL = new Ordenes();

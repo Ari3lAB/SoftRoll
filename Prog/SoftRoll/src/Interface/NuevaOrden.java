@@ -4,22 +4,41 @@
  * and open the template in the editor.
  */
 package Interface;
+
 import Control.FachadaControl;
+import DAO.Producto;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Ariel AB
  */
 public class NuevaOrden extends javax.swing.JFrame {
+
     FachadaControl control;
+    DefaultTableModel model;
+    ArrayList<Producto> list;
 
     /**
      * Creates new form NuevaOrden
      */
-    public NuevaOrden() {        
+    public NuevaOrden() {
         initComponents();
         this.setLocationRelativeTo(null);
         control = FachadaControl.getInstance();
+    }
+
+    public void addRowToJTable(CharSequence busqueda) {
+        model = (DefaultTableModel) tablaProductos.getModel();
+        list = control.BuscarProducto(busqueda);
+        Object rowData[] = new Object[4];
+        for (int i = 0; i < list.size(); i++) {
+            rowData[0] = list.get(i).getId();
+            rowData[1] = list.get(i).getNombre();
+            rowData[2] = list.get(i).getPrecio();
+            model.addRow(rowData);
+        }
     }
 
     /**
@@ -36,7 +55,7 @@ public class NuevaOrden extends javax.swing.JFrame {
         SearchBar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaProductos = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -66,48 +85,23 @@ public class NuevaOrden extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nombre", "Precio"
+                "ID", "Nombre", "Precio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-        }
+        jScrollPane1.setViewportView(tablaProductos);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -147,29 +141,7 @@ public class NuevaOrden extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Precio", "Cantidad"
@@ -191,9 +163,6 @@ public class NuevaOrden extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jButton3.setText("Eliminar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -332,7 +301,11 @@ public class NuevaOrden extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        model = (DefaultTableModel) tablaProductos.getModel();
+        model.setRowCount(0);
+        tablaProductos.revalidate();
+        CharSequence busqueda = SearchBar.getText();
+        addRowToJTable(busqueda);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -384,10 +357,10 @@ public class NuevaOrden extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable tablaProductos;
     // End of variables declaration//GEN-END:variables
 }
