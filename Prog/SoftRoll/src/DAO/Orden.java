@@ -33,7 +33,7 @@ public class Orden {
     public Orden(int id, int idUser, int idCliente, String fecha, String estado, float pagoTotal, short descuento) {
         this.id = id;
         this.user = user;
-        this.cliente = cliente;
+        this.cliente = idCliente;
         this.fecha = fecha;
         this.estado = estado;
         this.pagoTotal = pagoTotal;
@@ -43,7 +43,7 @@ public class Orden {
     public Orden(int id, int idUser, int idCliente, String fecha, String estado) {
         this.id = id;
         this.user = user;
-        this.cliente = cliente;
+        this.cliente = idCliente;
         this.fecha = fecha;
         this.estado = estado;
     }

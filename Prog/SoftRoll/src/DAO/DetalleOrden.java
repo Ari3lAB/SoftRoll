@@ -19,21 +19,6 @@ public class DetalleOrden {
         this.notas = notas;
     }
 
-    public DetalleOrden(int id, int idOrden, int idProducto, int cantidad, String notas) {
-        this.id = id;
-        this.idOrden = idOrden;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-        this.notas = notas;
-    }
-
-    public DetalleOrden(int id, int idOrden, int idProducto, int cantidad) {
-        this.id = id;
-        this.idOrden = idOrden;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
-    }
-
     public int getIdOrden() {
         return idOrden;
     }
@@ -50,8 +35,6 @@ public class DetalleOrden {
         this.idProducto = idProducto;
     }
 
-    
-    
     public int getCantidad() {
         return cantidad;
     }

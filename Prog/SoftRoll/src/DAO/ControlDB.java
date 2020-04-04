@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import java.awt.Component;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -41,14 +32,6 @@ public class ControlDB {
         }
 
         return single_instance;
-    }
-
-    public void AgregarOrden(int idCliente, int idUsuario, String Estado, float PagoFinal) throws SQLException {
-        Statement s = connect.conn.createStatement();
-        s.executeUpdate(
-                "insert into orden (Clientes_idClientes,Usuarios_idUsuarios,FechaOrden,Estado,PagoFinal)"
-                + "values('" + idCliente + "','" + idUsuario + "','" + ObtenerTiempo() + "','" + Estado + "','" + PagoFinal + ")");
-
     }
 
     public String ObtenerTiempo() {
@@ -91,6 +74,81 @@ public class ControlDB {
         return usuarios;
     }
 
+    public int AgregarCliente(String nombre, String telefono, String direccion) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query
+                = "insert into clientes(Nombre,Numero,Direccion)"
+                + "values('" + nombre + "','" + telefono + "','" + direccion + ");";
+        s.executeUpdate(query);
+        ResultSet rs = s.executeQuery("Select LAST_INSERT_ID();");
+        if (rs.next()) {
+            int idCliente = rs.getInt(1);
+            return idCliente;
+        }
+        return 0;
+    }
+
+    public int AgregarCliente(String nombre, String telefono) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query
+                = "insert into clientes(Nombre,Numero,Direccion)"
+                + "values('" + nombre + "','" + telefono + ");";
+        s.executeUpdate(query);
+        ResultSet rs = s.executeQuery("Select LAST_INSERT_ID();");
+        if (rs.next()) {
+            int idCliente = rs.getInt(1);
+            return idCliente;
+        }
+        return 0;
+    }
+
+    public ArrayList ObtenerClientes() throws SQLException {
+        String query = "select * from Clientes";
+        ArrayList<Cliente> clientes = new ArrayList();
+        Statement s = connect.conn.createStatement();
+        ResultSet rs = s.executeQuery(query);
+
+        while (rs.next()) {
+            clientes.add(
+                    new Cliente(rs.getInt("idClientes"), rs.getString("Nombre"), rs.getString("Numero"), rs.getString("Direccion")));
+        }
+        return clientes;
+    }
+
+    public int AgregarOrden(int idCliente, int idUsuario, String Estado, float PagoFinal) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query
+                = "insert into orden (Clientes_idClientes,Usuarios_idUsuarios,FechaOrden,Estado,PagoFinal)"
+                + "values('" + idCliente + "','" + idUsuario + "','" + ObtenerTiempo() + "','" + Estado + "','" + PagoFinal + ");";
+        s.executeUpdate(query);
+        ResultSet rs = s.executeQuery("Select LAST_INSERT_ID();");
+        if (rs.next()) {
+            int idOrden = rs.getInt(1);
+            return idOrden;
+        }
+        return 0;
+    }
+
+    public int AgregarOrden(int idCliente, int idUsuario, String Estado) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query
+                = "insert into orden (Clientes_idClientes,Usuarios_idUsuarios,FechaOrden,Estado)"
+                + "values('" + idCliente + "','" + idUsuario + "','" + ObtenerTiempo() + "','" + Estado + "');";
+        s.executeUpdate(query);
+        ResultSet rs = s.executeQuery("Select LAST_INSERT_ID();");
+        if (rs.next()) {
+            int idOrden = rs.getInt(1);
+            return idOrden;
+        }
+        return 0;
+    }
+
+    public void CancelarOrden(int idOrden) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query = "update orden set Estado = 'Cancelada' where idOrden = '" + idOrden + "';";
+        s.executeUpdate(query);
+    }
+
     public ArrayList ObtenerOrdenesActivas() throws SQLException {
         String query = "select * from orden  where Estado = 'activa'";
         ArrayList<Orden> ordenesActivas = new ArrayList();
@@ -103,4 +161,5 @@ public class ControlDB {
         }
         return ordenesActivas;
     }
+
 }

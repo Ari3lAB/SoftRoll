@@ -3,7 +3,6 @@ package DAO;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,13 +14,16 @@ import javax.swing.JPanel;
  */
 public class ControlDao {
 
+    public static int USUARIOACTIVO;
     private static ControlDao single_instance = null;
     Menu menu;
     ArrayList<Usuario> usuarios;
+    ArrayList<Cliente> clientes;
 
     private ControlDao() {
         this.menu = new Menu(GenerarMenu());
         this.usuarios = ObtenerUsuarios();
+        this.clientes = ObtenerClientes();
     }
 
     public static ControlDao getInstance() {
@@ -32,10 +34,12 @@ public class ControlDao {
         return single_instance;
     }
 
-    public boolean PedirAcceso(String usuario, String pass) {        
+    public boolean PedirAcceso(String usuario, String pass) {
         for (int i = 0; i < usuarios.size(); i++) {
             if (usuarios.get(i).getNombre().equals(usuario)) {
                 if (usuarios.get(i).getContra().equals(pass)) {
+                    USUARIOACTIVO = usuarios.get(i).getId();
+
                     return true;
                 } else {
                     Component panel = new JPanel();
@@ -74,13 +78,94 @@ public class ControlDao {
         return listausuarios;
     }
 
-    public void IngresarOrden(int idCliente, int idUsuario, String Estado, float PagoFinal) {
+    public ArrayList<Cliente> ObtenerClientes() {
+        ArrayList listaClientes = null;
         try {
-            ControlDB.getInstance().AgregarOrden(idCliente, idUsuario, Estado, PagoFinal);
+            listaClientes = new ArrayList(ControlDB.getInstance().ObtenerClientes());
+
+        } catch (Exception e) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Imposible obtener clientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return listaClientes;
+    }
+
+    public int AgregarCliente(String nombre, String telefono, String direccion) {
+        int idCliente = 0;
+        try {
+            idCliente = ControlDB.getInstance().AgregarCliente(nombre, telefono, direccion);
         } catch (SQLException ex) {
             Component panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Imposible ingresar orden: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        if (idCliente == 0) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Ocurrió un error al ingresar la orden", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return idCliente;
+    }
+
+    public int AgregarCliente(String nombre, String telefono) {
+        int idCliente = 0;
+        try {
+            idCliente = ControlDB.getInstance().AgregarCliente(nombre, telefono);
+        } catch (SQLException ex) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Imposible ingresar nuevo cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (idCliente == 0) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Ocurrió un error al ingresar nuevo cliente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return idCliente;
+    }
+
+    public int BuscarCliente(String telefono) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getTelefono().equals(telefono)) {
+                return cliente.getId();
+            }
+        }
+        return 0;
+    }
+
+    public int BuscarAgregarCliente(String nombre, String telefono, String direccion) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getTelefono().equals(telefono)) {
+                return cliente.getId();
+            }
+        }
+        return AgregarCliente(nombre, telefono, direccion);
+    }
+
+    public int IngresarOrden(int idCliente, int idUsuario, String Estado, float PagoFinal) {
+        int idOrden = 0;
+        try {
+            idOrden = ControlDB.getInstance().AgregarOrden(idCliente, idUsuario, Estado, PagoFinal);
+        } catch (SQLException ex) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Imposible ingresar orden: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (idOrden == 0) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Ocurrió un error al ingresar la orden", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return idOrden;
+    }
+
+    public int IngresarOrden(int idCliente, int idUsuario, String Estado) {
+        int idOrden = 0;
+        try {
+            idOrden = ControlDB.getInstance().AgregarOrden(idCliente, idUsuario, Estado);
+        } catch (SQLException ex) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Imposible ingresar orden: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (idOrden == 0) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Ocurrió un error al ingresar la orden", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return idOrden;
     }
 
     public void IngresarDetallesOrden(ArrayList<DetalleOrden> DetallesOrden) {
@@ -106,5 +191,14 @@ public class ControlDao {
             JOptionPane.showMessageDialog(panel, "Imposible obtener ordenes activas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         return ordenes;
+    }
+
+    public void CancelarOrden(int idOrden) {
+        try {
+            ControlDB.getInstance().CancelarOrden(idOrden);
+        } catch (SQLException ex) {
+            Component panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "Imposible cancelar orden: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

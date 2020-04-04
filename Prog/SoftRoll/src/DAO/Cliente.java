@@ -6,19 +6,31 @@ package DAO;
  */
 public class Cliente {
 
-    private String telefono;
+    private int id;
     private String nombre;
+    private String telefono;
     private String direccion;
-    private String id;
 
-    public String getId() {
+    public Cliente(int id, String nombre, String telefono, String direccion) {
+        this.telefono = telefono;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.id = id;
+    }
+
+    public Cliente(String nombre, String telefono) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getTelefono() {
         return telefono;
     }
