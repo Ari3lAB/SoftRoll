@@ -102,6 +102,11 @@ public class GenerarReportes extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comercio.png"))); // NOI18N
         jButton5.setPreferredSize(new java.awt.Dimension(80, 30));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton5);
         jButton5.setBounds(0, 490, 190, 80);
 
@@ -395,6 +400,13 @@ public class GenerarReportes extends javax.swing.JFrame {
         model.reload();
         
     }//GEN-LAST:event_jButtonEditActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        AdministrarCaja administrarcaja = new AdministrarCaja();
+        administrarcaja.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
