@@ -7,7 +7,7 @@ package Interface;
 
 /**
  *
- * @author a-roc
+ * @author Alan Acatictla M.
  */
 public class ResumenFinanciero extends javax.swing.JFrame {
 

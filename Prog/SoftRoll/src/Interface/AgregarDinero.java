@@ -7,7 +7,7 @@ package Interface;
 
 /**
  *
- * @author a-roc
+ * @author Alan Acatictla M.
  */
 public class AgregarDinero extends javax.swing.JDialog {
 

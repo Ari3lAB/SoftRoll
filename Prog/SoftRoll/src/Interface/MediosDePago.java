@@ -7,7 +7,7 @@ package Interface;
 
 /**
  *
- * @author a-roc
+ * @author Alan Acatictla M.
  */
 public class MediosDePago extends javax.swing.JFrame {
 
