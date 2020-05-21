@@ -6,6 +6,7 @@ package Control;
  */
 import DAO.ControlDao;
 import java.util.ArrayList;
+import DAO.Venta;
 
 public class ControlOrden {
 
@@ -59,6 +60,35 @@ public class ControlOrden {
 
     public ArrayList ObtenerOrdenesActivas() {
         return dao.BuscarOrdenesActivas();
+    }
+
+    public ArrayList ObtenerOrdenesPagadas(String fechaInicio, String fechaFin) {
+        return dao.BuscarOrdenesPagadas(fechaInicio, fechaFin);
+    }
+
+    public ArrayList ObtenerOrdenesPeriodo(String fechaInicio, String fechaFin) {
+        return dao.BuscarOrdenesPeriodo(fechaInicio, fechaFin);
+    }
+
+    public ArrayList ObtenerProductos() {
+        return dao.BuscarProductos();
+    }
+
+    public ArrayList obtenerVenta(int idOrden) {
+        return dao.BuscarVenta(idOrden);
+    }
+
+    public float calcularTotal(int idOrden) {
+        float total = 0;
+        ArrayList<Venta> ventas = dao.BuscarVenta(idOrden);
+        for (Venta venta : ventas) {
+            total += (venta.getPrecio() * venta.getCantidad());
+        }
+        return total;
+    }
+
+    public void ingresarVenta(int idOrden, float total) {
+        dao.IngresarVenta(idOrden, total);
     }
 
 }

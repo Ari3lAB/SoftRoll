@@ -9,6 +9,8 @@ public class Orden {
     private int id;
     private int user;
     private int cliente;
+    private String nombreUsuario;
+    private String nombreCliente;
     private String fecha;
     private String estado;
     private float pagoTotal;
@@ -30,9 +32,9 @@ public class Orden {
         this.estado = estado;
     }
 
-    public Orden(int id, int idUser, int idCliente, String fecha, String estado, float pagoTotal, short descuento) {
+    public Orden(int id, int idCliente, int idUser, String fecha, String estado, float pagoTotal, short descuento) {
         this.id = id;
-        this.user = user;
+        this.user = idUser;
         this.cliente = idCliente;
         this.fecha = fecha;
         this.estado = estado;
@@ -40,12 +42,34 @@ public class Orden {
         this.descuento = descuento;
     }
 
-    public Orden(int id, int idUser, int idCliente, String fecha, String estado) {
+    public Orden(int id, int idCliente, int idUser, String fecha, String estado) {
         this.id = id;
         this.user = user;
         this.cliente = idCliente;
         this.fecha = fecha;
         this.estado = estado;
+    }
+
+    public Orden(int id, String nombreUsuario, String fecha, float pagoTotal) {
+        this.id = id;
+        this.nombreUsuario = nombreUsuario;
+        this.fecha = fecha;
+        this.pagoTotal = pagoTotal;
+    }
+
+    public Orden(int id, String nombreUsuario, String fecha, String estado) {
+        this.id = id;
+        this.nombreUsuario = nombreUsuario;
+        this.fecha = fecha;
+        this.estado = estado;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public int getId() {
@@ -66,6 +90,10 @@ public class Orden {
 
     public int getCliente() {
         return cliente;
+    }
+
+    public String getNombreCliente() {
+        return ControlDao.getInstance().BuscarNombreCliente(cliente);
     }
 
     public void setCliente(int cliente) {

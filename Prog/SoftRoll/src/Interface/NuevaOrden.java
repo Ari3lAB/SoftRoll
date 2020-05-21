@@ -9,6 +9,7 @@ import Control.FachadaControl;
 import DAO.ControlDao;
 import DAO.DetalleOrden;
 import DAO.Producto;
+import static Interface.Main.img;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
@@ -32,6 +33,8 @@ public class NuevaOrden extends javax.swing.JFrame {
      */
     public NuevaOrden() {
         initComponents();
+        this.setTitle("Nueva orden");
+        this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
         control = FachadaControl.getInstance();
         modelTablaBusqueda = (DefaultTableModel) tablaProductos.getModel();
@@ -86,7 +89,7 @@ public class NuevaOrden extends javax.swing.JFrame {
         jtextCantidad = new javax.swing.JTextField();
         jCheckBoxComerAquí = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         SearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +144,7 @@ public class NuevaOrden extends javax.swing.JFrame {
 
         jLabel1.setText("Instrucciones");
 
+        jtextMesa.setEnabled(false);
         jtextMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtextMesaActionPerformed(evt);
@@ -428,9 +432,8 @@ public class NuevaOrden extends javax.swing.JFrame {
             detallesOrden.add(new DetalleOrden(idOrden, Integer.parseInt(modelTablaOrden.getValueAt(fila, 0).toString()), Integer.parseInt(modelTablaOrden.getValueAt(fila, 3).toString()), modelTablaOrden.getValueAt(fila, 4).toString()));
         }
         control.AgregarDetalleOrden(detallesOrden);
-
-        Ordenes CAL = new Ordenes();
-        CAL.setVisible(true);
+        Ordenes ord = new Ordenes();
+        ord.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarOrdenActionPerformed
 
