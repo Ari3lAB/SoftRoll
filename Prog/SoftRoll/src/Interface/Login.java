@@ -10,6 +10,7 @@ import static Interface.Main.img;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Control.ControlOrden;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 public class Login extends javax.swing.JFrame {
 
     FachadaControl control;
+    ControlOrden dao;
     String usuario;
     String pass;
 
@@ -28,6 +30,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
+        dao = ControlOrden.getInstance();
         control = FachadaControl.getInstance();
     }
 
@@ -186,9 +189,16 @@ public class Login extends javax.swing.JFrame {
         pass = jPassword.getText();
 
         if (control.Acceder(usuario, pass)) {
-            Ordenes CAL = new Ordenes();
-            CAL.setVisible(true);
+            if (dao.revisarEstadoCaja()) {
+                Ordenes CAL = new Ordenes();
+                CAL.setVisible(true);
+            } else {
+                AbrirCaja ac = new AbrirCaja();
+                ac.setVisible(true);
+            }
+
             this.setVisible(false);
+            this.dispose();
         } else {
             Component panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Acceso denegado", "Error", JOptionPane.ERROR_MESSAGE);

@@ -5,11 +5,20 @@
         <group>
             <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/ConsultaOrdenes.java</file>
             <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Control/ControlOrden.java</file>
-            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/ConsultaProductos.java</file>
-            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/Producto.java</file>
-            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/MediosDePago.java</file>
-            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/ControlDB.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/Login.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/AdministrarCaja.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/Caja.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/FrameVenta.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/Movimiento.java</file>
             <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/ControlDao.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/ReporteVentas.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/VerTotal.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/ResumenFinanciero.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/Producto.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/Main.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/AbrirCaja.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/DAO/ControlDB.java</file>
+            <file>file:/C:/Users/Ariel%20AB/Desktop/Proyecto%20ROLL%20ROLL/SoftRoll/Prog/SoftRoll/src/Interface/AgregarDinero.java</file>
         </group>
     </open-files>
 </project-private>

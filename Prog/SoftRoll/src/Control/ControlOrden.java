@@ -22,7 +22,6 @@ public class ControlOrden {
         if (single_instance == null) {
             single_instance = new ControlOrden();
         }
-
         return single_instance;
     }
 
@@ -89,6 +88,26 @@ public class ControlOrden {
 
     public void ingresarVenta(int idOrden, float total) {
         dao.IngresarVenta(idOrden, total);
+    }
+
+    public ArrayList obtenerMovimientos() {
+        return dao.obtenerMovimientosDelDia();
+    }
+
+    public boolean revisarEstadoCaja() {
+        return dao.obtenerEstadoCaja();
+    }
+
+    public void abrirCaja(float deposito) {
+        dao.abrirCaja(deposito);
+    }
+
+    public void depositarEnCaja(float deposito) {
+        dao.depositarEnCaja(deposito);
+    }
+
+    public void cerrarCaja() {
+        dao.cerrarCaja();
     }
 
 }

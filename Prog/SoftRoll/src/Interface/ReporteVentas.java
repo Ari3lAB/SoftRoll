@@ -30,7 +30,7 @@ public class ReporteVentas extends javax.swing.JFrame {
      */
     public ReporteVentas() {
         initComponents();
-        this.setTitle(Reporte de ventas);
+        this.setTitle("Reporte de ventas");
         this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
         control = ControlOrden.getInstance();

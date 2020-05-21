@@ -1,5 +1,6 @@
 package DAO;
 
+import static DAO.ControlDao.USUARIOACTIVO;
 import java.awt.Component;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,13 @@ public class ControlDB {
     public String ObtenerTiempo() {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDateTime = format.format(date);
+        return currentDateTime;
+    }
+
+    public String ObtenerDía() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String currentDateTime = format.format(date);
         return currentDateTime;
     }
@@ -251,4 +259,40 @@ public class ControlDB {
         }
         return productos;
     }
+
+    public ArrayList ObtenerMovimientosDelDia() throws SQLException {
+        String query = "select * from movimientos where Fecha between '" + ObtenerDía() + " 00:00:00' and '" + ObtenerDía() + " 23:59:59'";
+        ArrayList<Movimiento> movimientos = new ArrayList();
+        Statement s = connect.conn.createStatement();
+        ResultSet rs = s.executeQuery(query);
+
+        while (rs.next()) {
+            movimientos.add(new Movimiento(rs.getInt("idMovimiento"), rs.getString("Tipo"), rs.getFloat("Cantidad"), rs.getString("Fecha")));
+        }
+        return movimientos;
+    }
+
+    public void CerrarCaja(Caja caja) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query
+                = "insert into caja (SaldoInicial,SaldoCierre,HoraCierre,idUsuarios)"
+                + "values('" + caja.getSaldoInicial() + "','" + caja.getSaldoCierre() + "','" + ObtenerTiempo() + "','" + USUARIOACTIVO + "');"
+                + "insert into movimientos(Tipo,Cantidad,Fecha) values ('Cierre'" + ",'" + caja.getSaldoCierre() + "','" + ObtenerTiempo() + "')";
+        s.executeUpdate(query);
+    }
+
+    public void AbrirCaja(float cantidad) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query = "insert into movimientos(Tipo,Cantidad,Fecha) values ('Apertura'" + ",'" + cantidad + "','" + ObtenerTiempo() + "')";
+        s.executeUpdate(query);
+    }
+
+    public void DepositarEnCaja(float cantidad) throws SQLException {
+        Statement s = connect.conn.createStatement();
+        String query = "insert into movimientos(Tipo,Cantidad,Fecha) values ('Deposito'" + ",'" + cantidad + "','" + ObtenerTiempo() + "')";
+        s.executeUpdate(query);
+
+    }
+    
+
 }

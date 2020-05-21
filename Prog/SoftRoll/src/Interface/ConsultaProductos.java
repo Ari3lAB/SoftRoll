@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Alan Acatictla M. & Ariel AB
  */
 public class ConsultaProductos extends javax.swing.JFrame {
-
+    
     DefaultTableModel model;
     ControlOrden control;
     ArrayList<Producto> list;
@@ -30,16 +30,17 @@ public class ConsultaProductos extends javax.swing.JFrame {
      */
     public ConsultaProductos() {
         initComponents();
+        this.setTitle("Consulta de Productos");
         this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
         control = ControlOrden.getInstance();
-
+        
         this.model = (DefaultTableModel) tablaConsulta.getModel();
         this.setVisible(true);
         updateTable();
-
+        
     }
-
+    
     public void updateTable() {
         model.setRowCount(0);
         list = control.ObtenerProductos();
@@ -48,7 +49,7 @@ public class ConsultaProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(panel, "Sin ordenes en periodo", "Atención", JOptionPane.INFORMATION_MESSAGE);
         }
         Object rowData[] = new Object[4];
-
+        
         for (Producto producto : list) {
             rowData[0] = producto.getId();
             rowData[1] = producto.getNombre();
@@ -57,7 +58,7 @@ public class ConsultaProductos extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

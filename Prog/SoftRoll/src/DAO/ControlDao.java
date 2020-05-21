@@ -19,11 +19,15 @@ public class ControlDao {
     Menu menu;
     ArrayList<Usuario> usuarios;
     ArrayList<Cliente> clientes;
+    ArrayList<Movimiento> movimientos;
+    Caja caja;
 
     private ControlDao() {
         this.menu = new Menu(GenerarMenu());
         this.usuarios = ObtenerUsuarios();
         this.clientes = ObtenerClientes();
+        obtenerMovimientos();
+        iniciarCaja();
     }
 
     public static ControlDao getInstance() {
@@ -273,6 +277,95 @@ public class ControlDao {
         } catch (SQLException ex) {
             Component panel = new JPanel();
             JOptionPane.showMessageDialog(panel, "Imposible cancelar orden: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void obtenerMovimientos() {
+        try {
+            movimientos = ControlDB.getInstance().ObtenerMovimientosDelDia();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList obtenerMovimientosDelDia() {
+        try {
+            return movimientos = ControlDB.getInstance().ObtenerMovimientosDelDia();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void iniciarCaja() {
+        float saldoInicial = 0;
+        float saldoActual = 0;
+        boolean cajaCerrada = false;
+
+        if (movimientos.isEmpty()) {
+            caja = new Caja(false);
+        }
+        if (!movimientos.isEmpty()) {
+            for (Movimiento movimiento : movimientos) {
+                if (movimiento.getTipo().equals("Apertura")) {
+                    saldoInicial = movimiento.getCantidad();
+                    saldoActual += saldoInicial;
+                    cajaCerrada = false;
+                }
+                if (movimiento.getTipo().equals("Deposito")) {
+                    saldoActual += movimiento.getCantidad();
+                }
+                if (movimiento.getTipo().equals("Retiro")) {
+                    saldoActual -= movimiento.getCantidad();
+                }
+                if (movimiento.getTipo().equals("Cierre")) {
+                    saldoInicial = 0;
+                    saldoActual = 0;
+                    cajaCerrada = true;
+                }
+            }
+
+            if (cajaCerrada == true) {
+                caja = new Caja(false);
+            } else {
+                caja = new Caja(saldoInicial, saldoActual, true);
+            }
+        }
+    }
+
+    public boolean obtenerEstadoCaja() {
+        return caja.isCajaAbierta();
+    }
+
+    public Caja getCaja() {
+        return caja;
+    }
+    
+    public void abrirCaja(float deposito) {
+        try {
+            ControlDB.getInstance().AbrirCaja(deposito);
+            caja.setCajaAbierta(true);
+            caja.setSaldoInicial(deposito);
+            caja.setSaldoActual(deposito);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void depositarEnCaja(float deposito) {
+        try {
+            ControlDB.getInstance().DepositarEnCaja(deposito);
+            caja.setSaldoActual(caja.getSaldoActual() + deposito);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void cerrarCaja() {
+        try {
+            ControlDB.getInstance().CerrarCaja(caja);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

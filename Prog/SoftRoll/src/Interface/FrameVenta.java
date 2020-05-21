@@ -11,7 +11,7 @@ import static Interface.Main.img;
  * @author Ariel AB
  */
 public class FrameVenta extends javax.swing.JFrame {
-
+    
     DefaultTableModel model;
     int idOrden;
     float total;
@@ -23,7 +23,7 @@ public class FrameVenta extends javax.swing.JFrame {
     public FrameVenta() {
         initComponents();
     }
-
+    
     public FrameVenta(int idOrden) {
         initComponents();
         this.setIconImage(img.getImage());
@@ -34,9 +34,9 @@ public class FrameVenta extends javax.swing.JFrame {
         this.total = control.calcularTotal(idOrden);
         updateTable();
         this.setVisible(true);
-
+        
     }
-
+    
     public void updateTable() {
         model.setRowCount(0);
         ArrayList<Venta> list;
@@ -50,7 +50,7 @@ public class FrameVenta extends javax.swing.JFrame {
         }
         totalVenta.setText("$" + String.valueOf(total));
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,6 +156,7 @@ public class FrameVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.ingresarVenta(idOrden, total);
         control.ingresarVenta(idOrden, total);
         Ordenes ord = new Ordenes();
         ord.setVisible(true);
